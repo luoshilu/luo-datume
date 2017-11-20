@@ -26,39 +26,16 @@
         }
         .ul li {
             display: block;
-            margin: 12px;
+            /* margin: 12px; */
             border: 1px solid #AF8787;
             padding: 12px;
-            width: 200%;
+            /* width: 200%; */
             
         }
 
         /* 滚动条样式 */
-        @-moz-document url-prefix(http://),url-prefix(https://) {   
-            /* 滚动条颜色 */  
-            scrollbar {   
-               -moz-appearance: none !important;   
-               background: rgb(0,255,0) !important;   
-            }   
-            /* 滚动条按钮颜色 */  
-            thumb,scrollbarbutton {   
-               -moz-appearance: none !important;   
-               background-color: rgb(0,0,255) !important;   
-            }   
-            /* 鼠标悬停时按钮颜色 */  
-              
-            thumb:hover,scrollbarbutton:hover {   
-               -moz-appearance: none !important;   
-               background-color: rgb(255,0,0) !important;   
-            }   
-            /* 隐藏上下箭头 */  
-            scrollbarbutton {   
-               display: none !important;   
-            }   
-            /* 纵向滚动条宽度 */  
-            scrollbar[orient="vertical"] {   
-              min-width: 15px !important;   
-            }   
+        .ul::-webkit-scrollbar {
+            width: 0;
         }
     </style>
 </head>
