@@ -29,45 +29,88 @@
             /* margin: 12px; */
             border: 1px solid #AF8787;
             padding: 12px;
-            /* width: 200%; */
+            width: 200%;
             
         }
 
-        /* 滚动条样式 */
+        /* 滚动条样式 1 */
         .ul::-webkit-scrollbar {
             width: 40px;
             height: 80px;
-            background-color: #ffffff;
+            /* background-color: #ffffff; */
             border: 1px solid #000;
         }
+        /* 2 */
         .ul::-webkit-scrollbar-button {
             /* display: none; */
             background-color:#FF7677;
             border-radius:8px;
         }
+        /* 3 */
         .ul::-webkit-scrollbar-track {
             /* display: none; */
-            background-color:#000;
+            /* background-color:#000; */
         }
+        /* 4 */
         .ul::-webkit-scrollbar-track-piece {
             /* display: none; */
-            background-color:#000000;
+            /* background-color:#000000; */
         }
+        /* 5 */
         .ul::-webkit-scrollbar-thumb {
             background:#FFA711;
             height: 20%;
+            top: 50px;
             /* width: 1px; 设置了没啥效果啊 */
             border-radius:8px;
         }
+        /* 6 */
         .ul::-webkit-scrollbar-corner {
-            background:#000;
+            /* background:#000; */
             border-radius:16px;
         }
+        /* 7 */
         .ul::-webkit-resizer  {
             /* width: 0; 没用？ */
             /* height: 0; 没用？ */
             /* border: 1px solid #000; 还是没用？*/ 
             background-color: #EB1212;
+        }
+        /* :horizontal作用于水平方向的滚动条 */
+        .ul::-webkit-scrollbar:horizontal {
+            background-color: #1C5BE4;
+        }
+        /* :vertical 垂直方向的滚动条 */
+        .ul::-webkit-scrollbar:vertical {
+            background-color: #000;
+        }
+        /* :decrement伪类适用于表示递减的按钮或轨道碎片 */
+        .ul::-webkit-scrollbar-button:decrement {
+            background-color: #6E1C79;
+        }
+        /* :decrement伪类适用于表示递增的按钮或轨道碎片 */
+        .ul::-webkit-scrollbar-button:increment {
+            background-color: #C2933C;
+        }
+        /* :start/:end 伪类适用于按钮和轨道碎片。表示对象（按钮 轨道碎片）是否放在滑块的前/后面？（2，3,4）*/
+        .ul::-webkit-scrollbar-button:start {
+            background-color: #E63307;
+        }
+        /* :single-button / :double-button 判断轨道结束的位置是否是一个/对按钮？*/
+        .ul::-webkit-scrollbar-track:single-button {
+            background-color: #EEE8E7;
+        }
+        /* :no-button示轨道结束的位置没有按钮。？ */
+        .ul::-webkit-scrollbar-track:no-button {
+            background-color: #220703;
+        }
+        /*滚动条上半边或左半边*/
+        .ul::-webkit-scrollbar-track-piece:end {
+            background-color: #E63307;
+        }
+        /*当鼠标在水平滚动条下面的递减按钮上的状态*/
+        .ul::-webkit-scrollbar-button:horizontal:decrement:hover {
+            background-color: #24E4D4;
         }
     </style>
 </head>
@@ -81,39 +124,7 @@
             <li></li>
             <li></li>
             <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
+
         </ul>
     </div>
 </body>
