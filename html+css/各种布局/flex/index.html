@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>float</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .head {
+            /* float: left; */
+            display: block;
+            width: 50%;
+            margin: 0 auto;
+            height: 50px;
+            background-color: #2DBBAD;
+        }
+        /* justify-content 水平对齐方式 */
+        .ct {
+            display: flex;
+            width: 50%;
+            height: 300px;
+            margin: 16px auto;
+            justify-content: space-between;
+        }
+        .ct>.left, .ct>.right {
+            width: 180px;
+            height: 100%;
+            background-color: #CC575D;
+        }
+        /* flex-grow剩余空间 是否需要填充 默认0(不填充) 1 填充 */
+        .ct .md {
+            display: block;
+            background-color: #555F9B;
+            height: 100%;
+            flex-grow: 1;
+            /* margin: 0 192px; */
+        }
+        .footer {
+            width: 50%;
+            height: 100px;
+            background-color: #9E47A1;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- 做一个导航，左边栏，中部，右边栏，底部的布局 -->
+    <!-- 中部，左右两边固定大小，中间宽度自适应 -->
+    <div class="float-flex">
+        <div class="head"></div>
+        <div class="ct">
+            <div class="left"></div>
+            <div class="md"></div>
+            <div class="right"></div>
+        </div>
+        <div class="other"></div>
+        <div class="footer"></div>
+    </div>
+</body>
+</html>
