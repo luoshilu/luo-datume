@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>行内居中</title>
+</head>
+<body>
+    <!-- 行内元素居中 -->
+    <div style="text-align: center">
+        <span>
+            <!-- <div style="width:100px;float:left">haha</div> -->
+            水平居中啊
+        </span>
+    </div>
+    <!-- end行内元素居中 -->
+
+    <!-- 块状元素居中 -->
+    <div>
+        <div style="width:100px;margin:0 auto">居中啊啊啊啊</div>
+    </div>
+    <!-- end块状元素居中 -->
+
+    <!-- 不定宽块状元素居中 -->
+
+    <div>
+        <table style="margin:0 auto;">
+        <tbody>
+            <tr><td>
+            <div>
+                我借助table居中
+            </div>
+            </td></tr>
+        </tbody>
+        </table>
+    </div>
+
+    <div>
+        <div style="display:table;margin:0 auto;">我没有固定宽度，但是我想居中额,display:table;margin:0 auto;</div>
+    </div>
+    <!-- end不定宽块状元素居中 -->
+
+    <!-- 块状元素设置text-align:center;也能居中 -->
+    <style>
+        .container{
+            text-align:center;
+            display: inline-block;
+            width: 100%;
+        }
+        .container ul{
+            list-style:none;
+            display: inline-block;
+            margin:0;
+            padding:0;
+        }
+    </style>
+    
+    <div class="container">
+        <ul>
+            <li>将居中进行到底</li>
+        </ul>
+    </div>
+    <!-- end转化为行内元素进行居中 -->
+
+    <!-- float居中法 -->
+    <style>
+        .wrap{
+            float:left;
+            position:relative;
+            left:50%;
+            clear:both;
+        }
+        .wrap-center{
+            position:relative;
+            left:-50%;
+        }
+        .wrap::after {
+            content: "";
+            visibility: hidden;
+            clear: both;
+        }
+    </style>
+<!--     <div class="wrap">
+        <div class="wrap-center">居中就是这么简单</div>
+    </div> -->
+
+    <!-- flex -->
+    <span style="display:flex;justify-content:center;">用我居中最爽了</span>
+</body>
+</html>

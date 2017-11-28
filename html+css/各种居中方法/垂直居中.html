@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>垂直居中</title>
+</head>
+<body>
+    <style>
+    </style>
+    <div style="line-height: 100px;background-color: #554411">
+            <span style="display:inline-block;line-height: 50px;height: 50px;vertical-align: text-top;border:1px solid #ccc; ">
+                    我想垂直居中啊
+            </span>
+    </div>
+
+    <div style="line-height: 100px;background-color: #ccc">
+            <div style="display:inline-block;vertical-align:middle;line-height: 50px;height: 50px;">
+                我是div我也想垂直居中啊
+            </div>
+    </div>
+
+    <style>
+        .box {
+                height:300px;
+                background:#ccc;
+                vertical-align:middle;   /* td 标签默认情况下就默认设置了 vertical-align 为 middle，可以不需要显式地设置 */
+            }
+    </style>
+    <table>
+        <tbody>
+            <tr>
+                <td class="box">
+                    <div>
+                        <p>借table居中一下</p>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    
+    <style>
+        .box2{
+            height: 100px;
+            background:#ccc;
+            display:table-cell;
+            vertical-align:middle;
+        }
+    </style>
+    
+    <div class="box2">
+        <!-- <p>Hello world</p> -->
+        <p>Hello world</p>
+        <!-- <p>Hello world</p> -->
+    </div>
+
+    <!-- flex -->
+    <div style="display: flex;align-items:center;height:100px;">
+        <span>我居中最简单</span>
+    </div>
+</body>
+</html>
