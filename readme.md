@@ -14,4 +14,4 @@
 
 ## 学习资料
 
-* [rxJS 中文文档]()
+* [rxJS 中文文档](https://github.com/luoshilu/luo-datume/tree/master/%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/rxjs)
