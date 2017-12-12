@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>简单例子</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.5/Rx.min.js"></script>
+</head>
+<body>
+    <button id="bt">button</button>
+</body>
+
+<script>
+    // 使用rx 代替传统的addEventListener
+    // var count = 0;
+    // var button = document.querySelector('#bt');
+    // Rx.Observable.fromEvent(button, 'click')
+    //     .scan(count => count + 1, 0)
+    //     .subscribe(count => console.log(`Clicked ${count} times`));
+
+    // －－－－－－－－－分割线－－－－－－－－
+
+    // =>１s只能点击一次
+    // 传统
+    // var count = 0;
+    // var rate = 1000;
+    // var lastClick = Date.now() - rate;
+    // var button = document.querySelector('button');
+    // button.addEventListener('click', () => {
+    //     if (Date.now() - lastClick >= rate) {
+    //         console.log(`Clicked ${++count} times`);
+    //         lastClick = Date.now();
+    //     } }
+    // );
+    //
+    // rx流操作符
+    // var button = document.querySelector('#bt');
+    // Rx.Observable.fromEvent(button, 'click')
+    //     .throttleTime(1000)
+    //     .scan(count => count + 1, 0)
+    //     .subscribe(count => console.log(`Clicked ${count} times`));
+    // 除了throttleTime外，还有filter, delay, debounceTime, take, takeUntil, distinct,distinctUntilChanged等等
+
+    // －－－－－－－－－分割线－－－－－－－－
+
+    // => 击鼠标时获取X坐标位置
+    // 传统
+    // var count = 0;
+    // var rate = 1000;
+    // var lastClick = Date.now() - rate;
+    // var button = document.querySelector('button');
+    // button.addEventListener('click', (event) => {
+    //     if (Date.now() - lastClick >= rate) {
+    //         console.log(++count + event.clientX)
+    //         lastClick = Date.now();
+    //     } }
+    // );
+    //
+    // 通过rx的Observable对象来转化值
+    // var button = document.querySelector('button');
+    // Rx.Observable.fromEvent(button, 'click')
+    //     .throttleTime(1000)
+    //     .map(event => event.clientX)
+    //     .scan((count, clientX) => count + clientX, 0)
+    //     .subscribe(count => console.log(count));
+    // 生产值的操作还有pluck, pairwise, sample等。
+
+    // －－－－－－－－－分割线－－－－－－－－
+
+</script>
+</html>

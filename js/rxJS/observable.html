@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.5/Rx.min.js"></script>
+    <title>Observable对象</title>
+</head>
+<body>
+    <script>
+        //// 可观察对象以(惰性)的方式推送多值的集合。
+        // -------------------------------------------
+        //        |  Single单值  |  Multiple多值  |
+        // pull拉 |  Function    ｜  Iterator       |
+        // push推 |  Promise     |  Observable      |
+        // -----------------------------------------
+
+        // var observable = Rx.Observable.create(observer => {
+        //     observer.next(1);
+        //     observer.next(2);
+        //     observer.next(3);
+        //     setTimeout(() => {
+        //         observer.next(4);
+        //         observer.complete();
+        //     }, 1000);
+        // })
+        // 
+        // console.log('jest before subscribe');
+        // observable.subscribe({
+        //     next: x => console.log('got value' + x),
+        //     err: (err) => console.log('its a err!' + err),
+        //     complete: () => console.log('its completed')
+        // })
+        // console.log('just after subscribe');
+
+        //// 关于pull拉　和  push推　的思想
+
+        // 什么是"Pull拉"？在"拉"体系中，数据的消费者决定何时从数据生产者那里获取数据，而生产者自身并不会意识到什么时候数据将会被发送给消费者。
+        // 什么是"Push推"？在推体系中，数据的生产者决定何时发送数据给消费者，消费者不会在接收数据之前意识到它将要接收这个数据。
+        // Function:只在调用时惰性的计算后同步地返回一个值
+        // Generator(生成器):惰性计算，在迭代时同步的返回零到无限个值(如果有可能的话)
+        // Promise是一个可能(也可能不)返回一个单值的计算。
+        // Observable是一个从它被调用开始，可异步或者同步的返回零到多个值的惰性
+        // 执行运算。
+
+        //// 可观察对象，更一般的函数
+
+        // 可观察对象，即不像EventEmitters事件驱动，也不像promises。
+        //　可观察对象像一个零参的函数，但是允许返回多个值使得其更加一般化
+        
+        // function foo() {
+        //      console.log('Hello');
+        //      return 42;
+        // } v
+        // ar x = foo.call(); // same as foo()
+        // console.log(x);
+        // var y = foo.call(); // same as foo()
+        // console.log(y);
+        
+        // var foo=Rx.Observable.create(function(observer){
+        //      console.log('Hello');
+        //      observer.next(42);
+        // });
+        // foo.subscribe(function(x){
+        //      console.log(x)；
+        // });
+        // foo.subscribe(function (y){
+        //      console.log(y);
+        // });
+
+        // 函数和可观察对象均是惰性计算
+        // 即不call调用函数，console.log('Hello');就不会发生。并且两次函数调用触发两个独立副作用。
+        // 这和事件驱动不同，共享副作用并且不管订阅者的存在而去执行
+
+        // 订阅一个可观察对象类似于调用一个函数
+
+        // 可观察对象以同步或者异步的方式发送多个值
+
+        //总结:
+        //    fun.call()意味着同步的给我一个值
+        //    observable.subscribe()意味着给我任意多个值，同步也好异步也罢。
+
+        //// 剖解可观察对象
+
+        // 使用Rx.Observable.create或者一个能产生可观察对象的操作符来创造一个可观察
+        // 对象，使用一个观察者订阅它，执行然后给观察者发送next/error/complete通知。
+        // 他们的执行可能会被disposed(处理)。这四个方面均被编码进可观察对象的实例
+        // 中。但是其中的某些方面和其他的类型有关，如Observer和Subscription
+
+        // 1.Creating Observables //创建
+        // 2.Subscribing to Observables　//订阅
+        // 3.Executing the Observable　//　执行
+        // 4.Disposing Observables // 取消订阅
+
+        // Creating Observables创建
+        // var observable = Rx.Observable.create(function subscribe(observer
+        // ) {
+        //     var id = setInterval(() => {
+        //         observer.next('hi')
+        //     }, 1000);
+        // });
+
+        // Subscribing to Observables　订阅可观察者对象，使用观察者
+        // observable.subscribe(x => console.log(x));　／／订阅
+        // 参数可以是一个函数、观察者对象、多种回调
+
+        // 一个回调函数(以next作为句柄进行回调)，如上面的例子
+        // 观察者对象
+        //     observable.subscribe({
+        //         next:x=>console.log('Observer got a next value: ' + x),
+        //         error: err => console.error('Observer got an error: ' + err),
+        //         complete: () => console.log('over')
+        //     });
+        // 三种回调
+        //     observable.subscribe(
+        //         x => console.log('Observer got a next value: ' + x),
+        //         err => console.error('Observer got an error: ' + err),
+        //         () => console.log('Observer got a complete notification')
+        //     );
+
+        // Executing the Observable　执行
+
+        // observer语法似于　next*(error|complete)?
+        // 一个可观察对象的执行期间，零个到无穷多个next通知被发送。如果Error或者
+        // Complete通知一旦被发送，此后将不再发送任何值。
+
+        // var observable = Rx.Observable.create(function subscribe(observer
+        // ) {
+        //     observer.next(1);
+        //     observer.next(2);
+        //     observer.next(3);
+        //     observer.complete();
+        //     observer.next(4); // 不会被执行
+        // });
+
+        // Disposing Observables
+        // 在执行过程我们可对可观察对象进行处理，比如取消订阅
+        // 当我们使用create()创建可观察对象，每一个可观察对象必须确定怎样去处理该执行的资源
+        // 当observable.subscribe被调用，观察者将专注于最新被创建的可观察对象的执行，并且这个调用返回一个对象:the SUbscription
+
+        // function subscribe(observer) {
+        // var intervalID = setInterval(() => {
+        //     observer.next('hi');
+        // }, 1000);
+        //     return function unsubscribe() {
+        //         clearInterval(intervalID);
+        //     };
+        // }
+        // var unsubscribe = subscribe({next: (x) => console.log(x)});
+        // // Later:
+        // unsubscribe(); // dispose the resources
+
+        //等同于
+
+        // var subscription = observable.subscribe(x => {
+        //     Keep track of the interval resource
+        //     var intervalID = setInterval(() => {
+        //         observer.next('hi');
+        //     }, 1000);
+        //     });
+        // var unsubscribe = subscribe({next: (x) => console.log(x)});
+        // subscription.unsubscribe();　// 取消订阅
+
+        var observable1 = Rx.Observable.interval(400);
+        var observable2 = Rx.Observable.interval(300);
+        var subscription = observable1.subscribe(x => console.log('first: ' + x));
+        var childSubscription = observable2.subscribe(x => console.log('second: ' + x));
+        subscription.add(childSubscription);
+        setTimeout(() => {
+            // Unsubscribes BOTH subscription and childSubscription
+            subscription.unsubscribe();
+        }, 5000);
+    </script>
+    </body>
+</html>
