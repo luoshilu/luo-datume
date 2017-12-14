@@ -25,13 +25,19 @@
         //         observer.complete();
         //     }, 1000);
         // })
-        // 
+        
         // console.log('jest before subscribe');
-        // observable.subscribe({
+        // let ob = observable.subscribe({
         //     next: x => console.log('got value' + x),
         //     err: (err) => console.log('its a err!' + err),
         //     complete: () => console.log('its completed')
         // })
+        // let ob2 = observable.subscribe({
+        //     next: x => console.log('got value2' + x),
+        //     err: (err) => console.log('its a err2!' + err),
+        //     complete: () => console.log('its completed2')
+        // })
+        // ob.unsubscribe();
         // console.log('just after subscribe');
 
         //// 关于pull拉　和  push推　的思想
@@ -100,7 +106,12 @@
         //         observer.next('hi')
         //     }, 1000);
         // });
-
+        // observable.subscribe((x) => {
+        //     console.log(x);
+        // })
+        // observable.subscribe((x) => {
+        //     console.log(x+1);
+        // })
         // Subscribing to Observables　订阅可观察者对象，使用观察者
         // observable.subscribe(x => console.log(x));　／／订阅
         // 参数可以是一个函数、观察者对象、多种回调
@@ -151,26 +162,138 @@
         // // Later:
         // unsubscribe(); // dispose the resources
 
-        //等同于
+        ////　订阅
+        // var observable1 = Rx.Observable.interval(400);
+        // var observable2 = Rx.Observable.interval(300);
+        // var subscription = observable1.subscribe(x => console.log('first: ' + x));
+        // var childSubscription = observable2.subscribe(x => console.log('second: ' + x));
+        // subscription.add(childSubscription);　// 将childSubscription作为subscription的子订阅
+        // setTimeout(() => {
+        //     // Unsubscribes BOTH subscription and childSubscription
+        //     subscription.unsubscribe();
+        // }, 5000);
 
-        // var subscription = observable.subscribe(x => {
-        //     Keep track of the interval resource
-        //     var intervalID = setInterval(() => {
-        //         observer.next('hi');
-        //     }, 1000);
+        //// Subject主题
+        //
+        // Subject是允许值被多播到多个观察者的一种特殊的Observable
+        // var subject = new Rx.Subject();
+        // subject.subscribe({
+        //     next: (v) => console.log('observerA: ' + v)
+        // });
+        // subject.subscribe({
+        //     next: (v) => console.log('observerB: ' + v)
+        // });
+        // subject.next(2);
+        // subject.next(3);
+        //
+        // 它相当于是observable的执行和订阅之间的控制中介。它可以控制observable何时执行，然后将其多播给订阅者。
+        // 它属于被观察者，也属于观察者
+        // 所以你可以提供一个Subject当做observable.subscribe()的参数
+        // var subject = new Rx.Subject();
+        // subject.subscribe({
+        //     next: (v) => {
+        //         console.log(`observableA:${v}`);
+        //     }
+        // })
+        // subject.subscribe({
+        //     next: (v) => {
+        //         console.log(`observableB:${v}`);
+        //     }
+        // })
+        // var observable = Rx.Observable.from([1,2,3]);
+        // observable.subscribe(subject);
+
+        // 多播的可观察对象
+        // var source=Rx.Observable.from([1,2,3]);
+        // var subject=new Rx.Subject();
+        // var multicasted=source.multicast(subject);
+        // multicasted.subscribe({
+        //     next:(v)=>console.log('observerA:' +v)
+        // });
+        // multicasted.subscribe({
+        //     next: (v) => console.log('observerB: ' + v)
+        // });
+        // multicasted.connect();
+        //
+        // multicast返回一个ConnectableObservable，它只是一个具有connect() 方法的Observable
+        // connect()方法对于在决定何时开始分享可观察对象的执行 是非常重要的,这是一个很关键的东西。
+
+        // reference counting引用计数
+
+        // 显示调用connetct()
+        // var source = Rx.Observable.interval(500);
+        // var subject = new Rx.Subject();
+        // var multicasted = source.multicast(subject);
+        // var subscription1, subscription2, subscriptionConnect;
+        // subscription1 = multicasted.subscribe({
+        //     next: (v) => console.log('observerA: ' + v)
+        // });
+        // // We should call `connect()` here, because the first
+        // // subscriber to `multicasted` is interested in consuming values
+        // subscriptionConnect = multicasted.connect();
+        // setTimeout(() => {
+        // subscription2 = multicasted.subscribe({
+        //     next: (v) => console.log('observerB: ' + v)
+        // });
+        // }, 600);
+        // setTimeout(() => {
+        //     subscription1.unsubscribe();
+        // }, 1200);
+        // // We should unsubscribe the shared Observable execution here,
+        // // because `multicasted` would have no more subscribers after this
+        // setTimeout(() => {
+        //     subscription2.unsubscribe();
+        //     subscriptionConnect.unsubscribe(); // for the shared Observable execution
+        // }, 2000);
+
+        // 引用计数
+        // 避免显式的调用connect()，我们可以使用ConnectableObservable对象的refCount()方法(引用计数)
+        // 它返回一个追踪它自身有多少个订阅者的可观察对象。当订阅者的数量从0增加到1，它将会为我们调用connect()，这将开始分享可观
+        // 察对象的执行。在当且仅在订阅者的数量降低到0的时候它将会完全取消订阅，停掉更进一步的执行。
+        // var source = Rx.Observable.interval(500);
+        // var subject = new Rx.Subject();
+        // var refCounted = source.multicast(subject).refCount();
+        // console.log(`observarA subscribed`);
+        // var subscription1,subscription2;
+        // subscription1 = refCounted.subscribe({
+        //     next: (v) => console.log('observerA: ' + v)
+        // });
+        // setTimeout(() => {
+        //     console.log('observerB subscribed');
+        //     subscription2 = refCounted.subscribe({
+        //         next: (v) => console.log('observerB: ' + v)
         //     });
-        // var unsubscribe = subscribe({next: (x) => console.log(x)});
-        // subscription.unsubscribe();　// 取消订阅
+        // }, 600);
+        // setTimeout(() => {
+        //     console.log('observerA unsubscribed');
+        //     subscription1.unsubscribe();
+        // }, 1200);
+        // setTimeout(() => {
+        //     console.log('observerB unsubscribed');
+        //     subscription2.unsubscribe();
+        // }, 2000);
+        // 引用计数方法refCount()仅存在于ConnectableObservable，并且它返回一个Obsevable,而不是另一个ConnectableObservable
 
-        var observable1 = Rx.Observable.interval(400);
-        var observable2 = Rx.Observable.interval(300);
-        var subscription = observable1.subscribe(x => console.log('first: ' + x));
-        var childSubscription = observable2.subscribe(x => console.log('second: ' + x));
-        subscription.add(childSubscription);
-        setTimeout(() => {
-            // Unsubscribes BOTH subscription and childSubscription
-            subscription.unsubscribe();
-        }, 5000);
+        // BehaviorSubject
+        // 当前值 (即一发生订阅时，将当前值发送给订阅者)
+        var subject = new Rx.BehaviorSubject(0); // 0 is the initial value
+        subject.subscribe({
+            next: (v) => console.log('observerA: ' + v)
+        });
+        subject.next(1);
+        subject.next(2);
+        subject.subscribe({
+            next: (v) => console.log('observerB: ' + v)
+        });
+        subject.next(3);
+
+        // ReplaySubject
+        // new Rx.BehaviorSubject(指定多少个值重发, 过去多久出现的值);
+
+        // AsyncSubject
+        // var subject = new Rx.AsyncSubject();
+        // subject.complete();
+        // 在执行结束时,自动发送给观察者可观察对象执行的最新值
     </script>
     </body>
 </html>
