@@ -12,5 +12,45 @@
 </body>
 
 <script>
+    //// Scheduler调度者
+    // 调度者控制着何时启动一个订阅和何时通知被发送
+    // 由３个组件构成
+    // 1.　数据结构
+    // 2. 执行上下文　(何处何时认为被执行)
+    // 3.具有虚拟的时钟
+    // 调度者使得你可以确定可观察对象在什么执行上下文中给观察者发送通知
+
+    // 使用observeOn操作符指定用于传递这些值的异步调度程序
+    // var observable = Rx.Observable.create(function (observer) {
+    // observer.next(1);
+    // observer.next(2);
+    // observer.next(3);
+    // observer.complete();
+    // })
+    // .observeOn(Rx.Scheduler.async);
+    // console.log('just before subscribe');
+    // observable.subscribe({
+    // next: x => console.log('got value ' + x),
+    // error: err => console.error('something wrong occurred: ' + err
+    // ),
+    // complete: () => console.log('done'),
+    // });
+    // console.log('just after subscribe');
+
+    var observable = Rx.Observable.create(function (proxyObserver) {
+        proxyObserver.next(1);
+        proxyObserver.next(2);
+        proxyObserver.next(3);
+        proxyObserver.complete();
+    }).observeOn(Rx.Scheduler.async);
+    var finalObserver = {
+        next: x => console.log('got value ' + x),
+        error: err => console.error('something wrong occurred: ' + err
+        ),
+        complete: () => console.log('done'),
+    };
+    console.log('just before subscribe');
+    observable.subscribe(finalObserver);
+    console.log('just after subscribe');
 </script>
 </html>
