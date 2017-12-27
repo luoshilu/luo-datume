@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>lazyload</title>
+    <!-- css -->
+    <style>
+        img.lazy { /* 设置宽高 */ }
+    </style>
+    <style>
+        img {
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <!-- html -->
+    <div>
+        <img class="lazy" src="http://img.zcool.cn/community/01690955496f930000019ae92f3a4e.jpg@2o.jpg" 
+                data-original="http://www.taopic.com/uploads/allimg/140421/318743-140421213T910.jpg" />
+        <img class="lazy" src="http://img.zcool.cn/community/01690955496f930000019ae92f3a4e.jpg@2o.jpg" 
+                data-original="http://www.taopic.com/uploads/allimg/140421/318743-140421213T910.jpg" />
+        <img class="lazy" src="http://img.zcool.cn/community/01690955496f930000019ae92f3a4e.jpg@2o.jpg" 
+                data-original="http://www.taopic.com/uploads/allimg/140421/318743-140421213T910.jpg" />
+        <img class="lazy" src="http://img.zcool.cn/community/01690955496f930000019ae92f3a4e.jpg@2o.jpg" 
+                data-original="http://www.taopic.com/uploads/allimg/140421/318743-140421213T910.jpg" />
+        <img class="lazy" src="http://img.zcool.cn/community/01690955496f930000019ae92f3a4e.jpg@2o.jpg" 
+                data-original="http://www.taopic.com/uploads/allimg/140421/318743-140421213T910.jpg" />
+        <img class="lazy" src="http://img.zcool.cn/community/01690955496f930000019ae92f3a4e.jpg@2o.jpg" 
+                data-original="http://www.taopic.com/uploads/allimg/140421/318743-140421213T910.jpg" />
+        <img class="lazy" src="http://img.zcool.cn/community/01690955496f930000019ae92f3a4e.jpg@2o.jpg" 
+                data-original="http://www.taopic.com/uploads/allimg/140421/318743-140421213T910.jpg" />
+    </div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="http://apps.bdimg.com/libs/jquery-lazyload/1.9.5/jquery.lazyload.js"></script>
+<script>
+    $('img.lazy').lazyload({
+      // 可设置加载时的动画等属性
+      effect: 'fadeIn'
+    });
+  </script>
+</html>
