@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.css" rel="stylesheet">
+    <title>Document</title>
+    <style>
+        body {
+            width: 80%;
+            margin: 100px auto;
+            text-align: center;
+        }
+        .content,.date {
+            display: block;
+            max-width: 80%;
+            margin: 20px auto;
+            margin: 50px;
+            padding: 50px;
+            min-height: 200px;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="head">
+        <button class="btn btn-success" id="back" onclick="window.history.back()">回退</button>
+        <button class="btn btn-info" id="forward" onclick="window.history.forward()">前进</button>
+    </div>
+
+    <div class="content">
+        <h3>content: index3.html</h3>
+        <a href="javascript:router('/index1.html')" class="btn btn-link">index1.html</a>
+        <a href="javascript:router('/index2.html')" class="btn btn-link">index2.html</a>
+        <a href="javascript:router('/index3.html')" class="btn btn-link">index3.html</a>
+        <a href="javascript:router('/index4.html')" class="btn btn-link">index4.html</a>
+    </div>
+    <div class="date">
+        <h3>date：</h3>
+    </div>
+</body>
+
+<script>
+    var div = document.createElement('div');
+window.onpopstate = function(event) {
+    document.title = event.state;
+    div.innerHTML = '';
+    div.innerHTML += `<p><b>history.length:</b><br><pre> ${history.length}</pre></p>`;
+    div.innerHTML += `<p><b>document.referrer:</b><br><pre> ${document.referrer}</pre></p>`;
+    div.innerHTML += `<p><b>location.hash:</b><br><pre> ${location.hash}</pre></p>`;
+    div.innerHTML += `<p><b>location.href:</b><br><pre> ${location.href}</pre></p>`;
+    div.innerHTML += `<p><b>event.state:</b><br><pre> ${JSON.stringify(event.state)}</pre></p>`;
+    div.innerHTML += `<p><b>document.location:</b><br><pre> ${document.location}</pre></p>`;
+    document.getElementsByClassName('date')[0].appendChild(div);
+  };
+  var nowurl = window.location.href;
+  console.log(nowurl.slice(nowurl.lastIndexOf('/')+1));
+  history.replaceState(nowurl.slice(nowurl.lastIndexOf('/')+1), "", "");
+
+  function router(url){
+      document.title = url.slice(url.indexOf('/')+1);
+      history.pushState(url.slice(url.indexOf('/')+1), document.title, url);
+  }
+</script>
+</html>
