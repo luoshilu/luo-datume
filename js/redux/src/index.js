@@ -66,7 +66,6 @@ let max = Rx.Observable.fromEvent($("#max"), 'keyup');
 let num = Rx.Observable.fromEvent($("#num"), 'keyup');
 
 let input = Rx.Observable.combineLatest(min,max,num);
-
 input.map(_=>_.map(v=>parseInt(v.target.value))).subscribe(res => {
     let n1 = res[0];
     let n2 = res[1];

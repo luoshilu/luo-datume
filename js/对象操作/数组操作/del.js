@@ -13,5 +13,40 @@ var arr = [1,2,3];
 arr.splice(0,2);
 
 
-console.log(arr);
+// console.log(arr);
+
+var removeDuplicates = function(nums) {
+    var obj_num = {};
+    var obj_str = {};
+    for(let i=0;i<nums.length;){
+        let n = nums[i];
+        if(typeof n === 'number')
+            {
+                if(!obj_num[n]){
+                    obj_num[n] = true;
+                    i++;
+                }
+                else
+                {
+                    nums.splice(i,1);    
+                }
+            }
+        else
+            {
+                if(!obj_str[n])
+                {
+                    obj_str[n] = true;
+                    i++;
+                }
+                else
+                {
+                    nums.splice(i,1);
+                }
+            }
+    }
+    return nums;
+};
+
+console.log(removeDuplicates([1,1,1,'1',2]));
+
 
