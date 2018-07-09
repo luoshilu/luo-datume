@@ -9,10 +9,10 @@ function threeSum(nums){
 
     var status = false; // 二分查找
 
-    function mid (min,max,now,g){
-        var mid  = Math.floor((min + max)/2);
-        if(mid)
-    }
+    // function mid (min,max,now,g){
+    //     var mid  = Math.floor((min + max)/2);
+    //     if(mid)
+    // }
     if(lt == 3){
      if(ary[now] + ary[left] + ary[right] == 0){
         res.push([ary[now],ary[left],ary[right]]);
