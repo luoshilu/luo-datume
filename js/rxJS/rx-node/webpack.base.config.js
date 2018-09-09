@@ -1,15 +1,15 @@
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const path = require('path');
-const webpack = require('webpack');
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const path = require('path')
+const webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 // 配置常量
 // 源代码的根目录（本地物理文件路径）
-const SRC_PATH = path.resolve('./src');
+const SRC_PATH = path.resolve('./src')
 // 打包后的资源根目录（本地物理文件路径）
-const ASSETS_BUILD_PATH = path.resolve('./build');
+const ASSETS_BUILD_PATH = path.resolve('./build')
 // 资源根目录（可以是 CDN 上的绝对路径，或相对路径）
-const ASSETS_PUBLIC_PATH = './';
- 
+const ASSETS_PUBLIC_PATH = './'
+
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -18,7 +18,7 @@ function resolve (dir) {
 module.exports = {
   context: SRC_PATH, // 设置源代码的默认根路径
   resolve: {
-    extensions: ['.js', '.jsx']  // 同时支持 js 和 jsx
+    extensions: ['.js', '.jsx'] // 同时支持 js 和 jsx
   },
   entry: {
     // 注意 entry 中的路径都是相对于 SRC_PATH 的路径
@@ -32,12 +32,12 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        enforce: 'pre',  // ESLint 优先级高于其他 JS 相关的 loader
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader'
-      },
+      // {
+      //   enforce: 'pre',  // ESLint 优先级高于其他 JS 相关的 loader
+      //   test: /\.jsx?$/,
+      //   exclude: /node_modules/,
+      //   loader: 'eslint-loader'
+      // },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
@@ -47,16 +47,14 @@ module.exports = {
       {
         test: /\.html$/,
         exclude: /node_modules/,
-        loader: "raw-loader" // loaders: ['raw-loader'] is also perfectly acceptable.
+        loader: 'raw-loader' // loaders: ['raw-loader'] is also perfectly acceptable.
       },
       {
         test: /\.(png|jpg|gif)$/,
-        use:
-        [
+        use: [
           {
             loader: 'url-loader',
-            options:
-            {
+            options: {
               limit: 8192,
               name: 'images/[name].[ext]'
             }
@@ -65,12 +63,10 @@ module.exports = {
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use:
-        [
+        use: [
           {
             loader: 'url-loader',
-            options:
-            {
+            options: {
               limit: 8192,
               mimetype: 'application/font-woff',
               name: 'fonts/[name].[ext]'
@@ -80,12 +76,10 @@ module.exports = {
       },
       {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use:
-        [
+        use: [
           {
             loader: 'file-loader',
-            options:
-            {
+            options: {
               limit: 8192,
               mimetype: 'application/font-woff',
               name: 'fonts/[name].[ext]'
@@ -109,4 +103,4 @@ module.exports = {
       template: 'index.html'
     })
   ]
-};
+}

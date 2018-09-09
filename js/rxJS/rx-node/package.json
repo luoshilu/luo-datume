@@ -17,8 +17,6 @@
     "clean-webpack-plugin": "^0.1.17",
     "cnpm": "^5.1.1",
     "css-loader": "^0.28.7",
-    "eslint": "^4.13.1",
-    "eslint-loader": "^1.9.0",
     "file-loader": "^1.1.6",
     "html-webpack-plugin": "^2.30.1",
     "install": "^0.10.2",

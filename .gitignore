@@ -1,3 +1,6 @@
+.editorconfig
+.jshintrc
+.vscode
 node_modules/
 access_logs.db
 webpack.*.js
