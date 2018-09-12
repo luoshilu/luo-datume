@@ -10,10 +10,10 @@
   },
   "dependencies": {
     "chalk": "^2.3.2",
+    "cli-table": "^0.3.0",
     "co": "^4.6.0",
     "co-prompt": "^1.0.0",
     "commander": "^2.15.1",
-    "ora": "^2.0.0",
-    "cli-table": "^2.0.0"
+    "ora": "^2.0.0"
   }
 }

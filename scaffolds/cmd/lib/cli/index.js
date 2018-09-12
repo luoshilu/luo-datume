@@ -34,7 +34,7 @@ program
       });
   
   program
-      .command('delete') // fe delete
+      .command('del') // fe delete
       .description('查看模板列表')
       .alias('d') // 简写
       .action(() => {

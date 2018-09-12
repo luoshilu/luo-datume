@@ -43,6 +43,6 @@ module.exports = () => {
     const tplName = yield prompt('模板名字: ');
     return new Promise((resolve, reject) => {
       resolve(tplName);
-    }
-  }
+    })
+  })
 }
