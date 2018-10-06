@@ -1,0 +1,12 @@
+{
+  "name": "chapter2",
+  "version": "1.0.0",
+  "description": "- 模块 - 标准 I/O 以及 console 对象 - 操作系统与命令行 - 使用 timer 延迟执行",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./app.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
