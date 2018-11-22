@@ -27,7 +27,7 @@ http.createServer(function(req, res){
   req.on('data', function(chunk){
     console.log('in requist length:', chunk.length);
     proxyRequest.write(chunk, 'binary');
-  })
+  });
 
   req.on('end',  function(){
     console.log('original request ended');

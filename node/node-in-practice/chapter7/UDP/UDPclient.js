@@ -33,7 +33,7 @@ function Client(remoteIP) {
 function Server() {
   var socket = dgram.createSocket('udp4');
   socket.on("message", function(msg, rinfo){
-    process.stdout.write(msg.toString);
+    process.stdout.write(msg.toString());
   });
 
   socket.on("listening", function(){
