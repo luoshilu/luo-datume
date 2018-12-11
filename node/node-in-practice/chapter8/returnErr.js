@@ -1,3 +1,4 @@
+// 外部程序执行失败
 var cp = require('child_process');
 
 cp.execFile('ls', ['nofolder'],function(err, stdout, stderr){
